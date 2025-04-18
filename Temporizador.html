@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Temporizador</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 6vw;
+      text-shadow: 0 0 15px #0f0;
+      margin: 0 0 20px 0;
+    }
+
+    #countdown {
+      font-size: 10vw;
+      text-shadow: 0 0 20px #0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>TIC TAC CARLITOS</h1>
+  <div id="countdown">00:00:00</div>
+
+  <script>
+    // Fecha objetivo: 23 de junio de 2025 a las 21:00 hora de España (CEST)
+    const targetDate = new Date("2025-06-23T19:00:00Z"); 
+    // (21:00 CEST = 19:00 UTC)
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate.getTime() - now;
+
+      if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "00:00:00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      const formattedTime =
+        (days > 0 ? days + "d " : "") +
+        String(hours).padStart(2, '0') + ":" +
+        String(minutes).padStart(2, '0') + ":" +
+        String(seconds).padStart(2, '0');
+
+      document.getElementById("countdown").innerHTML = formattedTime;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
